@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, 
-    Switch, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, 
+    TouchableOpacity, Button } from 'react-native';
 
 export default function App() {
   return (
@@ -11,6 +11,17 @@ export default function App() {
       <View style = {styles.myContainer}>
         <Text style = {styles.text}>Nome</Text>
         <TextInput style = {styles.textInput} onChangeText/>
+      </View>
+
+      <View style = {styles.myContainer2}>
+        <View style = {styles.innerContainer}>
+            <Text style = {styles.text}>Número Apto</Text>
+            <TextInput style = {styles.textInput} onChangeText/>
+        </View>
+        <View style = {styles.innerContainer}>
+            <Text style = {styles.text}>Bloco</Text>
+            <TextInput style = {styles.textInput} onChangeText/>
+        </View>
       </View>
 
       <View style = {styles.myContainer}>
@@ -62,7 +73,8 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor:'#fff',
     borderRadius: '5px',
-    padding: '3px'
+    padding: '3px',
+    height: '30px'
   },
   touchContainer: {
     width: '250px',
@@ -75,5 +87,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: "10px",
     borderRadius: "5px",
+  },
+  myContainer2: {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: "10px"
+  },
+  innerContainer: {
+    marginRight: "5px",
+    marginLeft: "5px",
+    width: "120px"
   },
 });
