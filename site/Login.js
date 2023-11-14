@@ -6,17 +6,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto"/>
-      <Text style={styles.title}>Cadastro de morador</Text>
-
-      <View style = {styles.myContainer}>
-        <Text style = {styles.text}>Nome</Text>
-        <TextInput style = {styles.textInput} onChangeText/>
-      </View>
-
-      <View style = {styles.myContainer}>
-        <Text style = {styles.text}>Celular</Text>
-        <TextInput style = {styles.textInput} onChangeText/>
-      </View>
+      <Text style={styles.title}>Login do morador</Text>
 
       <View style = {styles.myContainer}>
         <Text style = {styles.text}>Email</Text>
@@ -31,7 +21,7 @@ export default function App() {
       <View style = {styles.touchContainer}>
         <TouchableOpacity style = {styles.touchable}
             onPress>
-            <Text>Cadastrar</Text>
+            <Text>Login</Text>
         </TouchableOpacity>
       </View>
     </View>
