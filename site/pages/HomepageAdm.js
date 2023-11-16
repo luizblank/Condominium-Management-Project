@@ -35,7 +35,7 @@ export default function App(props) {
 
                 <View style = {styles.touchContainer}>
                     <TouchableOpacity style = {styles.touchable}
-                        onPress>
+                        onPress = {() => props.navigation.navigate("Reservas")}>
                         <Text style={styles.textTouch}>Reservas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.touchable}

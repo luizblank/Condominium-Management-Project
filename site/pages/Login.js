@@ -1,16 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import QRCode from 'react-native-qrcode-svg'
+import {
+  StyleSheet, Text, View, TextInput,
+  TouchableOpacity, Button
+} from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto"/>
-      <Text style={styles.title}>Escaneie o QRCode para gerar o boleto</Text>
-      <QRCode
-        value = {(Math.random() * 9999999999999999).toString()}
-        size = {250}
-      />
+      <StatusBar style="auto" />
+      <Text style={styles.title}>Login do morador</Text>
+
+      <View style={styles.myContainer}>
+        <Text style={styles.text}>Email</Text>
+        <TextInput style={styles.textInput} onChangeText />
+      </View>
+
+      <View style={styles.myContainer}>
+        <Text style={styles.text}>CPF</Text>
+        <TextInput style={styles.textInput} onChangeText />
+      </View>
+
+      <View style={styles.touchContainer}>
+        <TouchableOpacity style={styles.touchable}
+          onPress>
+          <Text>Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -37,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   textInput: {
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     borderRadius: '5px',
     padding: '3px',
     height: '30px'
