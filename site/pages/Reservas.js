@@ -4,9 +4,13 @@ import {
     TouchableOpacity, Button
 } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
+import DatePicker from 'react-native-date-picker'
+
+var option = 'Churrasqueira';
 
 export default function App() {
     var opcoes = ['Churrasqueira', 'Piscina', 'Quadra'];
+
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
@@ -25,7 +29,7 @@ export default function App() {
                     defaultButtonText='Selecione uma opção...'
                     data={opcoes}
                     onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
+                        option = selectedItem;
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem

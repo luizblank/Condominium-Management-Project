@@ -13,6 +13,22 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Cadastro" component={Cadastro}
+          options={{
+            headerStyle: {
+              backgroundColor: '#18191a',
+              borderBottomColor: '#fff'
+            },
+            headerTintColor: '#fff'
+          }} />
+        <Stack.Screen name="Login" component={Login}
+          options={{
+            headerStyle: {
+              backgroundColor: '#18191a',
+              borderBottomColor: '#fff'
+            },
+            headerTintColor: '#fff'
+          }} />
         <Stack.Screen name="HomepageAdm" component={HomepageAdm}
           options={{
             headerStyle: {
@@ -30,22 +46,6 @@ export default function App() {
             headerTintColor: '#fff'
           }} />
         <Stack.Screen name="Boleto" component={Boleto}
-          options={{
-            headerStyle: {
-              backgroundColor: '#18191a',
-              borderBottomColor: '#fff'
-            },
-            headerTintColor: '#fff'
-          }} />
-        <Stack.Screen name="Cadastro" component={Cadastro}
-          options={{
-            headerStyle: {
-              backgroundColor: '#18191a',
-              borderBottomColor: '#fff'
-            },
-            headerTintColor: '#fff'
-          }} />
-        <Stack.Screen name="Login" component={Login}
           options={{
             headerStyle: {
               backgroundColor: '#18191a',
