@@ -13,7 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Cadastro" component={Cadastro}
+        <Stack.Screen name="Login" component={Login}
           options={{
             headerStyle: {
               backgroundColor: '#18191a',
@@ -21,7 +21,7 @@ export default function App() {
             },
             headerTintColor: '#fff'
           }} />
-        <Stack.Screen name="Login" component={Login}
+        <Stack.Screen name="Cadastro" component={Cadastro}
           options={{
             headerStyle: {
               backgroundColor: '#18191a',

@@ -4,19 +4,21 @@ import {
     TouchableOpacity, Button
 } from 'react-native';
 
+var session = JSON.parse(sessionStorage.getItem("user"));
+
 export default function App(props) {
     return (
         <View style={styles.container}>
             <View>
                 <View style={styles.myContainer2}>
-                    <Text style={styles.title}>Bem vindo Luiz{ }!</Text>
+                    <Text style={styles.title}>Bem vindo { session.name }!</Text>
                 </View>
                 <View style={styles.myContainer2}>
                     <View style={styles.innerContainer}>
-                        <Text style={styles.text}>Apto: { } |</Text>
+                        <Text style={styles.text}>Apto: { session.numapto } |</Text>
                     </View>
                     <View style={styles.innerContainer}>
-                        <Text style={styles.text}>Bloco: { }</Text>
+                        <Text style={styles.text}>Bloco: { session.block }</Text>
                     </View>
                 </View>
             </View>

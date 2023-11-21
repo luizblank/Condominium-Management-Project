@@ -3,8 +3,32 @@ import {
   StyleSheet, Text, View, TextInput,
   TouchableOpacity, Button
 } from 'react-native';
+import { useState } from 'react';
+import axios from 'axios';
 
-export default function App() {
+const response = await axios.get("http://localhost:8080/user");
+
+export default function App(props) {
+  const [email, setEmail] = useState('');
+  const [cpf, setCpf] = useState('');
+
+  function verifyLogin() {
+    var data = response.data;
+    var user;
+
+    for (var i = 0; i < data.length; i++)
+      if (data[i].email == email)
+        user = data[i];
+
+    console.log(user);
+    if (user.adm == true)
+      props.navigation.navigate("HomepageAdm");
+    else
+      props.navigation.navigate("Homepage");
+
+    sessionStorage.setItem("user", JSON.stringify(user));
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -12,17 +36,17 @@ export default function App() {
 
       <View style={styles.myContainer}>
         <Text style={styles.text}>Email</Text>
-        <TextInput style={styles.textInput} onChangeText />
+        <TextInput style={styles.textInput} onChangeText = {text => setEmail(text)}/>
       </View>
 
       <View style={styles.myContainer}>
         <Text style={styles.text}>CPF</Text>
-        <TextInput style={styles.textInput} onChangeText />
+        <TextInput style={styles.textInput} onChangeText = {text => setCpf(text)} />
       </View>
 
       <View style={styles.touchContainer}>
         <TouchableOpacity style={styles.touchable}
-          onPress>
+          onPress = {() => verifyLogin()}>
           <Text>Login</Text>
         </TouchableOpacity>
       </View>

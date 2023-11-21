@@ -1,0 +1,1 @@
+spring.data.mongodb.uri = mongodb+srv://luizblank:sB95SOaA0XqmK5mD@condominiumdatabase.nsrffdj.mongodb.net/Deployment
