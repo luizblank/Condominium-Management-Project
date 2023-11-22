@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Cadastro from './pages/Cadastro';
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -7,8 +8,12 @@ import HomepageAdm from './pages/HomepageAdm';
 import Boleto from './pages/Boleto';
 import Reservas from './pages/Reservas';
 
-export default function App() {
+export default function App(props) {
   const Stack = createStackNavigator();
+  function logout() {
+    sessionStorage.clear();
+    window.location.reload(false);
+  }
 
   return (
     <NavigationContainer>
@@ -29,21 +34,36 @@ export default function App() {
             },
             headerTintColor: '#fff'
           }} />
-        <Stack.Screen name="HomepageAdm" component={HomepageAdm}
+        <Stack.Screen name="HomeADM" component={HomepageAdm}
           options={{
+            headerLeft: () => null,
             headerStyle: {
               backgroundColor: '#18191a',
               borderBottomColor: '#fff'
             },
-            headerTintColor: '#fff'
+            headerTintColor: '#fff',
+            headerRight: () => (
+              <TouchableOpacity style={styles.touchable}
+                onPress = {() => logout()}>
+                <Text style = {styles.text}>Logout</Text>
+              </TouchableOpacity>
+            )
           }} />
-        <Stack.Screen name="Homepage" component={Homepage}
+        <Stack.Screen name="Home" component={Homepage}
           options={{
+            name: "Home",
+            headerLeft: () => null,
             headerStyle: {
               backgroundColor: '#18191a',
               borderBottomColor: '#fff'
             },
-            headerTintColor: '#fff'
+            headerTintColor: '#fff',
+            headerRight: () => (
+              <TouchableOpacity style={styles.touchable}
+                onPress = {() => logout()}>
+                <Text style = {styles.text}>Logout</Text>
+              </TouchableOpacity>
+            )
           }} />
         <Stack.Screen name="Boleto" component={Boleto}
           options={{
@@ -65,3 +85,20 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  touchable: {
+    innerHeight: '40px',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: "10px",
+    borderRadius: "5px",
+    marginRight: "15px"
+  },
+  text: {
+    fontSize: "15px",
+    fontWeight: "bold",
+    color: "#18191a"
+  }
+});

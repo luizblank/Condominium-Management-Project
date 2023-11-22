@@ -1,32 +1,53 @@
+import * as React from "react";
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TextInput,
   TouchableOpacity, Button
 } from 'react-native';
 import { useState } from 'react';
+import Modal from "react-native-modal";
 import axios from 'axios';
 
-const response = await axios.get("http://localhost:8080/user");
-
 export default function App(props) {
+  if(sessionStorage.length > 0)
+  {
+    try {
+      var user = JSON.parse(sessionStorage.getItem("user"));
+      if (user.adm == true)
+        props.navigation.navigate("HomeADM");
+      else
+        props.navigation.navigate("Home");
+    } catch (e) {
+      console.log("Session Storage empty.")
+    }
+  }
+
   const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState('');
+  const [cpf, setCpf] = useState('a');
 
-  function verifyLogin() {
-    var data = response.data;
-    var user;
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
-    for (var i = 0; i < data.length; i++)
-      if (data[i].email == email)
-        user = data[i];
+  async function verifyLogin() {
+    const response = await axios.get("http://localhost:8080/user/cpf/" + cpf);
 
-    console.log(user);
-    if (user.adm == true)
-      props.navigation.navigate("HomepageAdm");
+    if(response.data.length > 0)
+    {
+      var user = response.data[0];
+      if(user.email == email)
+      {
+        if (user.adm == true)
+          props.navigation.navigate("HomeADM");
+        else
+          props.navigation.navigate("Home");
+  
+        sessionStorage.setItem("user", JSON.stringify(user));
+      }
+      else
+        handleModal();
+    }
     else
-      props.navigation.navigate("Homepage");
-
-    sessionStorage.setItem("user", JSON.stringify(user));
+      handleModal();
   }
 
   return (
@@ -50,6 +71,15 @@ export default function App(props) {
           <Text>Login</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal isVisible={isModalVisible}>
+        <View style = {styles.modal}>
+          <View style = {styles.modalBox}>
+            <Text style = {{marginBottom: "10px", fontSize: "18px"}}>Email ou senha incorretos!</Text>
+            <Button color = "#242526" title="Ok" onPress={handleModal} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -93,4 +123,13 @@ const styles = StyleSheet.create({
     padding: "10px",
     borderRadius: "5px",
   },
+  modal: {
+    flex: 1,
+    alignItems: "center"
+  },
+  modalBox: {
+    backgroundColor: "white",
+    padding: "10px",
+    borderRadius: "10px"
+  }
 });

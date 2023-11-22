@@ -4,9 +4,9 @@ import {
     TouchableOpacity, Button
 } from 'react-native';
 
-var session = JSON.parse(sessionStorage.getItem("user"));
-
 export default function App(props) {
+    var session = JSON.parse(sessionStorage.getItem("user"));
+
     return (
         <View style={styles.container}>
             <View>
