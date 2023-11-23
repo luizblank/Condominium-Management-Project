@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Modal from "react-native-modal";
 import axios from 'axios';
 
-export default function App(props) {
+export default function Login(props) {
   if(sessionStorage.length > 0)
   {
     try {

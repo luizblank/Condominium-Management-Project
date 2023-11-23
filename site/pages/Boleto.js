@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg'
 
-export default function App() {
+export default function Boleto() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />

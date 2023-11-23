@@ -1,15 +1,28 @@
+import * as React from "react";
 import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet, Text, View, TextInput,
-    TouchableOpacity, Button
+    TouchableOpacity
 } from 'react-native';
-import SelectDropdown from 'react-native-select-dropdown';
-import DatePicker from 'react-native-date-picker'
+import { DatePickerModal } from 'react-native-paper-dates';
 
-var option = 'Churrasqueira';
+export default function Reservas() {
+    var today = new Date();
+    const [cpf, setCpf] = React.useState('');
+    const [date, setDate] = React.useState(new Date(today.setDate(today.getDate() + 1)));
+    const [open, setOpen] = React.useState(false);
 
-export default function App() {
-    var opcoes = ['Churrasqueira', 'Piscina', 'Quadra'];
+    const onDismissSingle = React.useCallback(() => {
+        setOpen(false);
+    }, [setOpen]);
+
+    const onConfirmSingle = React.useCallback(
+        (params) => {
+            setOpen(false);
+            setDate(params.date);
+        },
+        [setOpen, setDate]
+    );
 
     return (
         <View style={styles.container}>
@@ -18,34 +31,33 @@ export default function App() {
 
             <View style={styles.myContainer}>
                 <Text style={styles.text}>CPF</Text>
-                <TextInput style={styles.textInput} onChangeText />
+                <TextInput style={styles.textInput} onChangeText = {(text) => setCpf(text)} />
             </View>
 
-            <View style={styles.myContainer}>
-                <Text style={styles.text}>Local</Text>
-                <SelectDropdown
-                    dropdownStyle = {{height: 'auto'}}
-                    buttonStyle={styles.select}
-                    defaultButtonText='Selecione uma opção...'
-                    data={opcoes}
-                    onSelect={(selectedItem, index) => {
-                        option = selectedItem;
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem
-                    }}
-                    rowTextForSelection={(item, index) => {
-                        return item
-                    }}
-                />
+            <View style={styles.dateContainer}>
+                <Text style={styles.text}>Data</Text>
+                <TouchableOpacity style={styles.dateButton}
+                    onPress={() => setOpen(true)}>
+                    <Text>{(new Date(date.setDate(date.getDate() - 1))).toISOString().substring(0, 10)}</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.touchContainer}>
                 <TouchableOpacity style={styles.touchable}
-                    onPress={() => console.log(option)}>
+                    onPress={() => alert('not implemented function')}>
                     <Text>Reservar</Text>
                 </TouchableOpacity>
             </View>
+
+            <DatePickerModal
+                validRange={{ startDate: new Date() }}
+                locale="en"
+                mode="single"
+                visible={open}
+                onDismiss={onDismissSingle}
+                date={new Date(date.setDate(date.getDate() + 1))}
+                onConfirm={onConfirmSingle}
+            />
         </View>
     );
 }
@@ -77,12 +89,6 @@ const styles = StyleSheet.create({
         padding: '3px',
         height: '30px'
     },
-    select: {
-        width: '250px',
-        borderRadius: '5px',
-        padding: '3px',
-        height: '30px'
-    },
     touchContainer: {
         width: '250px',
         marginTop: '3%'
@@ -92,6 +98,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: "10px",
+        borderRadius: "5px",
+    },
+    dateContainer: {
+        width: '250px',
+    },
+    dateButton: {
+        innerHeight: '40px',
+        backgroundColor: 'white',
         padding: "10px",
         borderRadius: "5px",
     },

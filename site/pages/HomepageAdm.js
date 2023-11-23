@@ -4,7 +4,7 @@ import {
     TouchableOpacity, Button
 } from 'react-native';
 
-export default function App(props) {
+export default function HomepageADM(props) {
     var session = JSON.parse(sessionStorage.getItem("user"));
 
     return (
@@ -38,7 +38,7 @@ export default function App(props) {
                 <View style = {styles.touchContainer}>
                     <TouchableOpacity style = {styles.touchable}
                         onPress = {() => props.navigation.navigate("Reservas")}>
-                        <Text style={styles.textTouch}>Reservas</Text>
+                        <Text style={styles.textTouch}>Reservar churrasqueira</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.touchable}
                         onPress>
