@@ -17,10 +17,6 @@ public class UserService {
         return this.userRepository.save(userModel);
     }
 
-    public void save(String id, String name, Short numapto, String block, String cellnumber, String email, String cpf, Boolean adm) {
-        this.userRepository.save(new UserModel(id, name, numapto, block, cellnumber, email, cpf, adm));
-    }
-
     public List<UserModel> findByName(String name) {
         return (List<UserModel>) this.userRepository.findByName(name);
     }

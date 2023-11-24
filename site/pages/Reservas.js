@@ -5,12 +5,26 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { DatePickerModal } from 'react-native-paper-dates';
+import axios from 'axios';
 
 export default function Reservas() {
+    var user = JSON.parse(sessionStorage.getItem("user"));
+
     var today = new Date();
-    const [cpf, setCpf] = React.useState('');
     const [date, setDate] = React.useState(new Date(today.setDate(today.getDate() + 1)));
     const [open, setOpen] = React.useState(false);
+
+    async function getInvalidDates() {
+        var response = await axios.get('http://localhost:8080/reservation');
+        var data = response.data;
+
+        var dates = [];
+        data.forEach(item => {
+            dates.push(new Date(item.date));
+        });
+
+        return dates;
+    }
 
     const onDismissSingle = React.useCallback(() => {
         setOpen(false);
@@ -24,18 +38,21 @@ export default function Reservas() {
         [setOpen, setDate]
     );
 
+    async function makeReservation() {
+        const postReservation = await axios.post("http://localhost:8080/reservation", {
+            'cpf': user.cpf,
+            'date': date
+        });
+        window.location.reload(false);
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Text style={styles.title}>Reservas</Text>
 
-            <View style={styles.myContainer}>
-                <Text style={styles.text}>CPF</Text>
-                <TextInput style={styles.textInput} onChangeText = {(text) => setCpf(text)} />
-            </View>
-
             <View style={styles.dateContainer}>
-                <Text style={styles.text}>Data</Text>
+                <Text style={styles.text}>Escolha o dia da sua reserva</Text>
                 <TouchableOpacity style={styles.dateButton}
                     onPress={() => setOpen(true)}>
                     <Text>{(new Date(date.setDate(date.getDate() - 1))).toISOString().substring(0, 10)}</Text>
@@ -44,7 +61,7 @@ export default function Reservas() {
 
             <View style={styles.touchContainer}>
                 <TouchableOpacity style={styles.touchable}
-                    onPress={() => alert('not implemented function')}>
+                    onPress={() => console.log(date, '\n' , typeof date)}>
                     <Text>Reservar</Text>
                 </TouchableOpacity>
             </View>
