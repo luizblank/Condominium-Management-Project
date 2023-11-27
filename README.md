@@ -5,8 +5,10 @@ Este documento fornece uma visão geral do sistema de condomínio desenvolvido e
 ## 1. Tecnologias Utilizadas:
 Front-End (React Native):
 * Desenvolvimento da interface do usuário com React Native.
+
 Back-End (Java):
 * Desenvolvimento em Java utilizando o framework Spring Boot para a construção da lógica de negócios.
+
 Banco de Dados (MongoDB):
 * Armazenamento e recuperação de dados utilizando o MongoDB, um banco de dados NoSQL.
 ## 2. Funcionalidades do Sistema:
