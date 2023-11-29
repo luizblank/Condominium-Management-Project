@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.repository.Query;
 import com.luizblank.condominiumapi.model.ReservationModel;
 
 public interface ReservationRepository extends MongoRepository<ReservationModel, String> {
-    @Query("{'cpf': ?0}")
-    List<ReservationModel> findByCpf(String cpf);
+    @Query("{'date': ?0}")
+    List<ReservationModel> findByDate(String date);
 }

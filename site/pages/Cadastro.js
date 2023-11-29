@@ -2,7 +2,7 @@ import * as React from "react";
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TextInput,
-  TouchableOpacity, Button
+  TouchableOpacity
 } from 'react-native';
 import { useState } from 'react';
 import axios from 'axios';
@@ -16,7 +16,7 @@ export default function Cadastro(props) {
   const [cpf, setCpf] = useState('');
 
   async function register() {
-    const response = await axios.post("http://localhost:8080/user", {
+    await axios.post("http://localhost:8080/user", {
       'name': name,
       'numapto': numapto,
       'block': block,

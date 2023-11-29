@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import {
-    StyleSheet, Text, View, TextInput,
-    TouchableOpacity, Button
+    StyleSheet, Text, View,
+    TouchableOpacity
 } from 'react-native';
 
 export default function HomepageADM(props) {
@@ -9,6 +9,7 @@ export default function HomepageADM(props) {
 
     return (
         <View style={styles.container}>
+            <StatusBar style="auto" />
             <View>
                 <View style={styles.myContainer2}>
                     <Text style={styles.title}>Bem vindo { session.name }!</Text>
@@ -30,8 +31,8 @@ export default function HomepageADM(props) {
                         <Text style={styles.textTouch}>Cadastro de novos moradores</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.touchable}
-                        onPress = {() => console.log(session)}>
-                        <Text style={styles.textTouch}>Registro de atividades</Text>
+                        onPress = {() => props.navigation.navigate("Moradores")}>
+                        <Text style={styles.textTouch}>Verificar moradores</Text>
                     </TouchableOpacity>
                 </View>
 

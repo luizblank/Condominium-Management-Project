@@ -6,7 +6,9 @@ export default function Boleto() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={styles.title}>Escaneie o QRCode para gerar o boleto</Text>
+      <View style={styles.myContainer}>
+        <Text style={styles.title}>Escaneie o QRCode para gerar o boleto</Text>
+      </View>
       <QRCode
         value={(Math.random() * 9999999999999999).toString()}
         size={250}

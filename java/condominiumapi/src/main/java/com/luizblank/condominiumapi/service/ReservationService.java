@@ -17,8 +17,8 @@ public class ReservationService {
         return this.reservationRepository.save(reservationModel);
     }
 
-    public List<ReservationModel> findByCpf(String cpf) {
-        return (List<ReservationModel>) this.reservationRepository.findByCpf(cpf);
+    public List<ReservationModel> findByDate(String date) {
+        return (List<ReservationModel>) this.reservationRepository.findByDate(date);
     }
 
     public List<ReservationModel> findAll() {

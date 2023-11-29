@@ -27,9 +27,9 @@ public class ReservationController {
         return listRes;
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public List<ReservationModel> getReservationByCpf(@PathVariable String cpf) {
-        List<ReservationModel> listRes = reservationService.findByCpf(cpf);
+    @GetMapping("/date/{date}")
+    public List<ReservationModel> getReservationByDate(@PathVariable String date) {
+        List<ReservationModel> listRes = reservationService.findByDate(date);
         return listRes;
     }
 

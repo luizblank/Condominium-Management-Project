@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage';
 import HomepageAdm from './pages/HomepageAdm';
 import Boleto from './pages/Boleto';
 import Reservas from './pages/Reservas';
+import Moradores from './pages/Moradores';
 
 export default function App(props) {
   const Stack = createStackNavigator();
@@ -74,6 +75,14 @@ export default function App(props) {
             headerTintColor: '#fff'
           }} />
         <Stack.Screen name="Reservas" component={Reservas}
+          options={{
+            headerStyle: {
+              backgroundColor: '#18191a',
+              borderBottomColor: '#fff'
+            },
+            headerTintColor: '#fff'
+          }} />
+        <Stack.Screen name="Moradores" component={Moradores}
           options={{
             headerStyle: {
               backgroundColor: '#18191a',

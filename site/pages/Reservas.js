@@ -8,52 +8,48 @@ import Modal from "react-native-modal";
 import { DatePickerModal } from 'react-native-paper-dates';
 import axios from 'axios';
 
+import { enGB, registerTranslation } from 'react-native-paper-dates'
+registerTranslation('en-GB', enGB)
+
 export default function Reservas() {
     var user = JSON.parse(sessionStorage.getItem("user"));
+    const [date, setDate] = React.useState(dateMinus(new Date()));
+    const [open, setOpen] = React.useState(false);
+
     const [isModalVisible, setIsModalVisible] = React.useState(false);
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
-    var today = new Date();
-    const [date, setDate] = React.useState(new Date(today.setDate(today.getDate() + 1)));
-    const [open, setOpen] = React.useState(false);
+    function dateMinus(funcDate){
+        var newDate = new Date(funcDate.setDate(funcDate.getDate() - 1));
+        return newDate;
+    }
 
-    async function getInvalidDates() {
-        var response = await axios.get('http://localhost:8080/reservation');
-        var data = response.data;
-
-        var dates = []
-        data.forEach(item => {
-            dates.push(new Date(item.date));
-        });
-
-        return dates
+    function dateToString(funcDate){
+        var stringDate = funcDate.toISOString().substring(0, 10);
+        return stringDate;
     }
 
     const onDismissSingle = React.useCallback(() => {
-        setOpen(false);
-    }, [setOpen]);
+            setOpen(false);
+        }, [setOpen]
+    );
 
     const onConfirmSingle = React.useCallback(
         (params) => {
             setOpen(false);
-            setDate(params.date);
+            setDate(dateMinus(params.date));
         },
-        [setOpen, setDate]
+        [setOpen, setDate],
     );
 
-    function getDate(){
-        var newDate = (new Date(date.setDate(date.getDate() - 1))).toISOString().substring(0, 10);
-        return newDate;
-    }
-
-    async function makeReservation() {
-        const searchDate = await axios.get("http://localhost:8080/reservation/date/" + getDate());
+    async function makeReservation(funcDate) {
+        const searchDate = await axios.get("http://localhost:8080/reservation/date/" + dateToString(funcDate));
 
         if(searchDate.data.length == 0)
         {
-            const postReservation = await axios.post("http://localhost:8080/reservation", {
+            await axios.post("http://localhost:8080/reservation", {
                 'cpf': user.cpf,
-                'date': getDate()
+                'date': dateToString(funcDate)
             });
             window.location.reload(false);
         }
@@ -72,24 +68,24 @@ export default function Reservas() {
                 <Text style={styles.text}>Escolha o dia da sua reserva</Text>
                 <TouchableOpacity style={styles.dateButton}
                     onPress={() => setOpen(true)}>
-                    <Text>{(new Date(date.setDate(date.getDate() - 1))).toISOString().substring(0, 10)}</Text>
+                    <Text>{date.toISOString().substring(0, 10)}</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.touchContainer}>
                 <TouchableOpacity style={styles.touchable}
-                    onPress={() => makeReservation()}>
+                    onPress={() => makeReservation(date)}>
                     <Text>Reservar</Text>
                 </TouchableOpacity>
             </View>
 
             <DatePickerModal
                 validRange={{ startDate: new Date() }}
-                locale="en"
+                locale="en-GB"
                 mode="single"
                 visible={open}
                 onDismiss={onDismissSingle}
-                date={new Date(date.setDate(date.getDate() + 1))}
+                date={date}
                 onConfirm={onConfirmSingle}
             />
 

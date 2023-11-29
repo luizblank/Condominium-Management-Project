@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import {
-    StyleSheet, Text, View, TextInput,
-    TouchableOpacity, Button
+    StyleSheet, Text, View,
+    TouchableOpacity
 } from 'react-native';
 
 export default function Homepage(props) {
@@ -9,6 +9,7 @@ export default function Homepage(props) {
     
     return (
         <View style={styles.container}>
+            <StatusBar style="auto" />
             <View>
                 <View style={styles.myContainer2}>
                     <Text style={styles.title}>Bem vindo { session.name }!</Text>
