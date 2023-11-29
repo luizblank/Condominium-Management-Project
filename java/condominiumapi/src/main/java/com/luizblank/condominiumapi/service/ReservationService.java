@@ -17,8 +17,8 @@ public class ReservationService {
         return this.reservationRepository.save(reservationModel);
     }
 
-    public List<ReservationModel> findByDate(String date) {
-        return (List<ReservationModel>) this.reservationRepository.findByDate(date);
+    public List<ReservationModel> findByDate(String type, String date) {
+        return (List<ReservationModel>) this.reservationRepository.findByDate(type, date);
     }
 
     public List<ReservationModel> findAll() {

@@ -43,15 +43,14 @@ export default function Reservas() {
     );
 
     async function makeReservation(funcDate) {
-        const searchDate = await axios.get("http://localhost:8080/reservation/type/Reserva/date/" + dateToString(funcDate));
-        console.log(searchDate.data);
+        const searchDate = await axios.get("http://localhost:8080/reservation/type/Agendamento/date/" + dateToString(funcDate));
 
         if(searchDate.data.length == 0)
         {
             await axios.post("http://localhost:8080/reservation", {
                 'cpf': user.cpf,
                 'date': dateToString(funcDate),
-                'type': 'Reserva'
+                'type': 'Agendamento'
             });
             window.location.reload(false);
         }
@@ -64,7 +63,7 @@ export default function Reservas() {
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
-            <Text style={styles.title}>Reservas</Text>
+            <Text style={styles.title}>Agendamento</Text>
 
             <View style={styles.dateContainer}>
                 <Text style={styles.text}>Escolha o dia da sua reserva</Text>

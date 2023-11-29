@@ -27,9 +27,9 @@ public class ReservationController {
         return listRes;
     }
 
-    @GetMapping("/date/{date}")
-    public List<ReservationModel> getReservationByDate(@PathVariable String date) {
-        List<ReservationModel> listRes = reservationService.findByDate(date);
+    @GetMapping("type/{type}/date/{date}")
+    public List<ReservationModel> getReservationByDate(@PathVariable(value = "type") String type, @PathVariable(value = "date") String date) {
+        List<ReservationModel> listRes = reservationService.findByDate(type, date);
         return listRes;
     }
 

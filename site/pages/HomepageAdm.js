@@ -42,7 +42,7 @@ export default function HomepageADM(props) {
                         <Text style={styles.textTouch}>Reservar churrasqueira</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.touchable}
-                        onPress>
+                        onPress = {() => props.navigation.navigate("Agendamento")}>
                         <Text style={styles.textTouch}>Agendamento</Text>
                     </TouchableOpacity>
                 </View>

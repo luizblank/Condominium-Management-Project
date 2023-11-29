@@ -41,10 +41,7 @@ export default function Condominio(props) {
                     <Text style={styles.boxText}>Fazer denúncia</Text>
                 </View>
                 <View style={styles.box}>
-                <Text style={styles.boxText}>Reservar churrasqueira</Text>
-                </View>
-                <View style={styles.box}>
-                    <Text style={styles.boxText}>Fazer denúncia</Text>
+                    <Text style={styles.boxText}>Reservar churrasqueira</Text>
                 </View>
             </View>
         </View>

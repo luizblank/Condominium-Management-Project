@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.repository.Query;
 import com.luizblank.condominiumapi.model.ReservationModel;
 
 public interface ReservationRepository extends MongoRepository<ReservationModel, String> {
-    @Query("{'date': ?0}")
-    List<ReservationModel> findByDate(String date);
+    @Query("{'type': ?0, 'date': ?1}")
+    List<ReservationModel> findByDate(String type, String date);
 }

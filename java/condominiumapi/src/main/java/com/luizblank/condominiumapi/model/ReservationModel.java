@@ -14,4 +14,5 @@ public class ReservationModel {
     private String id;
     private String cpf;
     private String date;
+    private String type;
 }
