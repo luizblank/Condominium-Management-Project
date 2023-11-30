@@ -28,13 +28,13 @@ export default function Login(props) {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
-  async function verifyLogin() {
+  async function verifyLogin(email, cpf) {
     const response = await axios.get("http://localhost:8080/user/cpf/" + cpf);
 
     if(response.data.length > 0)
     {
       var user = response.data[0];
-      if(user.email == email)
+      if(user.email == email.toLowerCase())
       {
         if (user.adm == true)
           props.navigation.navigate("HomeADM");
@@ -67,7 +67,7 @@ export default function Login(props) {
 
       <View style={styles.touchContainer}>
         <TouchableOpacity style={styles.touchable}
-          onPress = {() => verifyLogin()}>
+          onPress = {() => verifyLogin(email, cpf)}>
           <Text>Login</Text>
         </TouchableOpacity>
       </View>

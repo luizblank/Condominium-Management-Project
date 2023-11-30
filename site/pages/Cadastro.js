@@ -2,9 +2,10 @@ import * as React from "react";
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TextInput,
-  TouchableOpacity
+  TouchableOpacity, Button
 } from 'react-native';
 import { useState } from 'react';
+import Modal from "react-native-modal";
 import axios from 'axios';
 
 export default function Cadastro(props) {
@@ -15,17 +16,38 @@ export default function Cadastro(props) {
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
 
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const handleModal = () => setIsModalVisible(() => !isModalVisible);
+  const [modalValue, setModalValue] = useState('');
+
   async function register() {
+    var verify = await verifyValues();
+    if (verify != true)
+    {
+      setModalValue(verify);
+      handleModal();
+      return;
+    }
+
     await axios.post("http://localhost:8080/user", {
       'name': name,
       'numapto': numapto,
       'block': block,
       'cellnumber': cellnumber,
-      'email': email,
+      'email': email.toLowerCase(),
       'cpf': cpf,
       'adm': false
     });
     window.location.reload(false);
+  }
+
+  async function verifyValues() {
+    if (name == '' || numapto == '' || block == '' || cellnumber == '' || email == '' || cpf == '')
+      return 'Preencha todos os campos!';
+    if (email.includes('@') == false)
+      return 'Email inválido!';
+    if (cpf.replace(/[^a-zA-Z0-9 ]/g, ''))
+      return 'CPF inválido!'
   }
 
   return (
@@ -70,6 +92,15 @@ export default function Cadastro(props) {
           <Text>Cadastrar</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal isVisible={isModalVisible}>
+        <View style = {styles.modal}>
+          <View style = {styles.modalBox}>
+            <Text style = {{marginBottom: "10px", fontSize: "18px"}}>{modalValue}</Text>
+            <Button color = "#242526" title="Ok" onPress={handleModal} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

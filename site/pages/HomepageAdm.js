@@ -1,11 +1,16 @@
+import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet, Text, View,
-    TouchableOpacity
+    TouchableOpacity, Button
 } from 'react-native';
+import Modal from "react-native-modal";
 
 export default function HomepageADM(props) {
     var session = JSON.parse(sessionStorage.getItem("user"));
+
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
     return (
         <View style={styles.container}>
@@ -53,11 +58,20 @@ export default function HomepageADM(props) {
                         <Text style={styles.textTouch}>Gerar boleto</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.touchable}
-                        onPress>
+                        onPress = {() => handleModal()}>
                         <Text style={styles.textTouch}>Eleições</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
+            <Modal isVisible={isModalVisible}>
+                <View style={styles.modal}>
+                    <View style={styles.modalBox}>
+                        <Text style={{ marginBottom: "10px", fontSize: "18px" }}>Página em desenvolvimento</Text>
+                        <Button color="#242526" title="Ok" onPress={handleModal} />
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -121,5 +135,14 @@ const styles = StyleSheet.create({
     },
     buttons: {
         marginTop: '1%',
+    },
+    modal: {
+        flex: 1,
+        alignItems: "center"
+    },
+    modalBox: {
+    backgroundColor: "white",
+    padding: "10px",
+    borderRadius: "10px"
     }
 });
