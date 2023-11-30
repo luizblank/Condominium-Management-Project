@@ -33,9 +33,9 @@ export default function Cadastro(props) {
       'name': name,
       'numapto': numapto,
       'block': block,
-      'cellnumber': cellnumber,
+      'cellnumber': cellnumber.replace(/\D/g,''),
       'email': email.toLowerCase(),
-      'cpf': cpf,
+      'cpf': cpf.replace(/\D/g,''),
       'adm': false
     });
     window.location.reload(false);
@@ -46,8 +46,10 @@ export default function Cadastro(props) {
       return 'Preencha todos os campos!';
     if (email.includes('@') == false)
       return 'Email inválido!';
-    if (cpf.replace(/[^a-zA-Z0-9 ]/g, ''))
-      return 'CPF inválido!'
+    if (/^\d+$/.test(numapto) == false)
+      return 'Número do apartamento deve\nincluir apenas números!'
+
+    return true;
   }
 
   return (
